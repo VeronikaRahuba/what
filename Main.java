@@ -12,7 +12,7 @@ public class Main
         {
             for(short j=b; j<=m; j++)
             {
-                if((i-C)==0) 
+                if(((i-C)==0) || (j==o))
                 {
                     System.out.println("Error");
                     System.exit(0);

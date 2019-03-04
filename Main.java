@@ -1,63 +1,37 @@
-import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args) {
-        byte B[][];
-        byte C[][];
-        byte s;
-        byte c;
-        byte a;
-        byte b;
-        byte i;
-        byte j;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Количество строк");
-        s = scanner.nextByte();
-        System.out.println("Количество столбиков");
-        c = scanner.nextByte();
-        B = new byte[s][c];
-        C = new byte[c][s];
-        System.out.println("Ввод поэлементно");
-        for (i = 0; i < s; i++) {
-            for (j = 0; j < c; j++) {
-                B[i][j] = scanner.nextByte();
-            }
-        }
-        System.out.println("Ваша матрица В:");
-        for (i = 0; i < s; i++) {
-            for (j = 0; j < c; j++) {
-                System.out.print("  " + B[i][j]);
-            }
-            System.out.println();
-        }
+    public static void main(String args[]) {
+        StringBuilder Str = new StringBuilder("Мама и папа заказали арбуз");
+        System.out.println(Str);
+        String a = Str.toString();
+        String[] ar = a.split(" ");
+        int sub[] = new int[ar.length];
+        int max,q = 0;
+        String qwe;
 
-        for (i = 0; i < s; i++) {
-            for (j = 0; j < c; j++) {
-                C[j][i] = B[i][j];
-            }
-
-        }
-
-        System.out.println("Транмпонированная матрица С:");
-        for (j = 0; j < c; j++) {
-            for (i = 0; i < s; i++) {
-                System.out.print("  " + C[j][i]);
-            }
-            System.out.println();
-        }
-
-        b = 0;
-        for (i = 0; i < s; i++) {
-            a = C[0][i];
-            for (j = 0; j < c-1; j++)
-            {
-                if (a <  C[j+1][i])
-                {
-                    a=C[j+1][i];
+        for (int i = 0; i < ar.length; i++) {
+            for (int j = 0; j < ar[i].length(); j++) {
+                if (ar[i].charAt(j) == 'а') {
+                    sub[i] += 1;
                 }
             }
-            b += a;
         }
-        System.out.print("Сумма макс.элем в столбиках = " + b);
+
+        for (int i = 0; i < sub.length; i++) {
+            max = sub[i];
+            for (int j = 0 + i; j < sub.length; j++) {
+                if (max < sub[j]) {
+                    max = sub[j];
+                    q = j;
+                }
+            }
+            sub[q] = sub[i];
+            qwe = ar[i];
+            ar[i] = ar[q];
+            ar[q] = qwe;
+        }
+
+        for (int i = 0; i < ar.length; i++) {
+            System.out.println(ar[i]);
+        }
     }
 }

@@ -5,7 +5,7 @@ public class Main {
         String a = Str.toString();
         String[] ar = a.split(" ");
         int sub[] = new int[ar.length];
-        int max,q = 0;
+        int max,z,q = 0;
         String qwe;
 
         for (int i = 0; i < ar.length; i++) {
@@ -24,7 +24,9 @@ public class Main {
                     q = j;
                 }
             }
-            sub[q] = sub[i];
+            z = sub[i];
+            sub[i] = max;
+            sub[q] = z;
             qwe = ar[i];
             ar[i] = ar[q];
             ar[q] = qwe;

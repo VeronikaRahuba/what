@@ -1,0 +1,16 @@
+public class Plane {
+    String model;
+    String colour;
+    int lengths;
+    int seat;
+    String mfr;
+public int getSeat() { return seat;}
+public int getLengths() { return lengths;}
+    public Plane(String model, String colour, int lengths, int seat, String mfr) {
+        this.model = model;
+        this.colour = colour;
+        this.lengths = lengths;
+        this.seat = seat;
+        this.mfr = mfr;
+    }
+}

@@ -1,0 +1,71 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class Main {
+    public static void main(String[] args) {
+        int money1 = 400;
+        int money2 = 700;
+        Helmet h1 = new Helmet("helmet", 300, 10, "head");
+        Shield sh1 = new Shield("shield", 600, 30, "body");
+        Sword s1 = new Sword("sword",100, 15, "hand");
+        Trappings [] ar1 = {h1,sh1,s1};
+        Knight k1 = new Knight(ar1);
+        int suma = 0;
+        for (int i = 0; i < k1.ar.length; i++) {
+            suma+= k1.ar[i].price;
+            }
+        System.out.println("Price of trappings " + suma);
+        System.out.println("From the lightest equipment to the largest: ");
+        Arrays.sort(ar1, Comparator.comparingInt(Trappings::getWeihgt));
+        for (int i =0; i < k1.ar.length; i++){
+            System.out.print(" " + ar1[i].name);
+        }
+        System.out.print("\n");
+        System.out.println("The thing, that you can buy with 400-700: ");
+        for (int i = 0; i < k1.ar.length; i++){
+            if (k1.ar[i].price < money2 && k1.ar[i].price > money1){
+                System.out.println(" " + ar1[i].name);
+                }
+        }
+
+    }
+}
+
+class Trappings {
+    int price,weight;
+    String name;
+    public int getWeihgt() { return weight; }
+    Trappings (String name, int price, int weight){
+        this.name = name;
+        this.price = price;
+        this.weight = weight;
+    }
+}
+
+class Helmet extends Trappings {
+    String point;
+
+    Helmet(String name, int price, int weight, String point) {
+        super(name, price, weight);
+    }
+}
+class Shield extends Trappings{
+    String point;
+    Shield(String name, int price, int weight, String point){
+        super(name, price, weight);
+    }
+}
+
+class Sword extends Trappings{
+    String point;
+    Sword(String name, int price, int weight, String point){
+        super(name, price, weight);
+    }
+}
+
+class Knight{
+    Trappings []ar;
+    Knight(Trappings []ar) {
+        this.ar = ar;
+    }
+}

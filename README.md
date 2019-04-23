@@ -143,8 +143,7 @@ public class Main {
                     sym[i] = new Sym(split[i]);
                     sym[i + 1] = new Sym(sub);
                     sym[i + 2] = new Sym(" ");
-                } else i 
-f (split[i].contains("!")) {
+                } else if (split[i].contains("!")) {
                     sub = split[i].substring(split[i].length() - 1);
                     split[i].replace("!", "");
                     zn[i] = new Znak("!");

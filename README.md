@@ -25,7 +25,7 @@ public class Main {
                         sub[count] += 1;
                     }
                 }
-                System.out.println(sub[count]);
+            //    System.out.println(sub[count]);
                 count++;
             }
         }

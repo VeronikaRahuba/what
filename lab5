@@ -1,0 +1,225 @@
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        StringBuilder Str = new StringBuilder("Мама и папа заказали арбуз. И дети рады!");
+        String a = Str.toString();
+        Text text;
+        text = new Text(a);
+
+        for (int i = 0; i < text.sen.length; i++) {
+            text.sen[i].sort();
+            for (int j = 0; j < text.sen[i].sl.length; j++) {
+                System.out.println(text.sen[i].sl[j].toString());
+            }
+        }
+    }
+}
+class Sym {
+    String s;
+
+    Sym(String s) {
+        this.s = s;
+    }
+
+    @Override
+    public String toString() {
+        return (s);
+    }
+}
+
+class Word {
+    Letter[] buk;
+
+    Word(String toBuk) {
+
+        String[] split = toBuk.split("");
+        buk = new Letter[split.length];
+        for (int i = 0; i < toBuk.length(); i++) {
+            buk[i] = new Letter(split[i]);
+        }
+    }
+    public int check()
+    {
+        int sch = 0;
+
+        Letter test = new Letter("а");
+       
+            for (int i = 0; i < buk.length; i++) {
+                if (buk[i].equals(test)) {
+                    sch += 1;
+                    System.out.println("done");
+                }
+            }
+            return (sch);
+        }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        String a = "";
+        {
+            for (int i = 0; i < buk.length; i++) {
+                a += buk[i].toString();
+            }
+        }
+        return (a);
+    }
+}
+
+class Znak extends Sym {
+    String s;
+
+    Znak(String s) {
+        super(s);
+    }
+
+    public String toString() {
+        return (s);
+    }
+}
+
+class Letter {
+    String b;
+
+    Letter(String b) {
+        this.b = b;
+    }
+
+    @Override
+    public String toString() {
+        return (b);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+}
+
+class Sentence {
+    Sym[] sym;
+    Znak[] zn;
+    Word[] sl;
+    String sub;
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public Sentence(String toSym) {
+        String[] split = toSym.split(" ");
+        sl = new Word[split.length];
+        zn = new Znak[split.length];
+        sym = new Sym[0];
+        for (int i = 0; i < split.length; i++) {
+            if (split[i].contains(".")) {
+                sub = split[i].substring(split[i].length() - 1);
+                split[i].replace(".", "");
+                zn[i] = new Znak(".");
+                sl[i] = new Word(split[i]);
+                sym = Arrays.copyOf(sym, sym.length + 3);
+                sym[i] = new Sym(split[i]);
+                sym[i + 1] = new Sym(sub);
+                sym[i + 2] = new Sym(" ");
+            } else if (split[i].contains(",")) {
+                sub = split[i].substring(split[i].length() - 1);
+                split[i].replace(",", "");
+                zn[i] = new Znak(",");
+                sl[i] = new Word(split[i]);
+                sym = Arrays.copyOf(sym, sym.length + 3);
+                sym[i] = new Sym(split[i]);
+                sym[i + 1] = new Sym(sub);
+                sym[i + 2] = new Sym(" ");
+            } else if (split[i].contains("!")) {
+                sub = split[i].substring(split[i].length() - 1);
+                split[i].replace("!", "");
+                zn[i] = new Znak("!");
+                sl[i] = new Word(split[i]);
+                sym = Arrays.copyOf(sym, sym.length + 3);
+                sym[i] = new Sym(split[i]);
+                sym[i + 1] = new Sym(sub);
+                sym[i + 2] = new Sym(" ");
+            } else if (split[i].contains("?")) {
+                sub = split[i].substring(split[i].length() - 1);
+                split[i].replace("?", "");
+                zn[i] = new Znak("?");
+                sym = Arrays.copyOf(sym, sym.length + 3);
+                sl[i] = new Word(split[i]);
+                sym[i] = new Sym(split[i]);
+                sym[i + 1] = new Sym(sub);
+                sym[i + 2] = new Sym(" ");
+            } else {
+                zn[i] = new Znak("");
+                sl[i] = new Word(split[i]);
+                sym = Arrays.copyOf(sym, sym.length + 2);
+                sym[i] = new Sym(split[i]);
+                sym[i + 1] = new Sym(" ");
+            }
+        }
+    }
+    public void sort() {
+        // Word word[] = new Word[];
+        int number[] = new int[sl.length];
+        for (int i = 0; i < number.length; i++) {
+            number[i] = sl[i].check();
+        }
+        int max, q = 0, z;
+        Word qwe = new Word("");
+        for (int i = 0; i < number.length; i++) {
+            max = number[i];
+            q=i;
+            for (int j = i; j < number.length; j++) {
+                if (max < number[j]) {
+                    max = number[j];
+                    q = j;
+                }
+            }
+            z = number[i];
+            number[i] = number[q];
+            number[q] = z;
+            qwe = sl[i];
+            sl[i] = sl[q];
+            sl[q] = qwe;
+        }
+    }
+    @Override
+    public String toString() {
+        String a = "";
+        {
+            for (int i = 0; i < sl.length; i++) {
+                a += (sym[i].toString() + " ");
+
+            }
+        }
+        return (a);
+    }
+}
+
+
+class Text {
+    Sentence[] sen;
+
+    public Text(String toSen) {
+        String[] split = toSen.split("(?<=[?!.]) ");
+        sen = new Sentence[split.length];
+        for (int i = 0; i < split.length; i++) {
+            sen[i] = new Sentence(split[i]);
+        }
+    }
+    @Override
+    public String toString() {
+        String a = "";
+        {
+            for (int i = 0; i < sen.length; i++) {
+                a += sen[i].toString();
+            }
+        }
+        return a;
+    }
+}

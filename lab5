@@ -7,11 +7,27 @@ public class Main {
         Text text;
         text = new Text(a);
 
+
+      int S=0;
         for (int i = 0; i < text.sen.length; i++) {
-            text.sen[i].sort();
+            S+= text.sen[i].sl.length;
+        }
+        Word ar[] = new Word[S];
+        int k=-1;
+        for (int i = 0; i < text.sen.length ; i++) {
             for (int j = 0; j < text.sen[i].sl.length; j++) {
-                System.out.println(text.sen[i].sl[j].toString());
+             k++;
+             ar[k]=text.sen[i].sl[j];
             }
+        }
+        String s = new String();
+        for (int i = 0; i < ar.length; i++) {
+            s+=ar[i]+" ";
+        }
+        Sentence obs = new Sentence(s);
+        obs.sort();
+        for (int i = 0; i < obs.sl.length; i++) {
+            System.out.println(obs.sl[i]);
         }
     }
 }
@@ -48,7 +64,7 @@ class Word {
             for (int i = 0; i < buk.length; i++) {
                 if (buk[i].equals(test)) {
                     sch += 1;
-                    System.out.println("done");
+                    //System.out.println("done");
                 }
             }
             return (sch);
@@ -97,7 +113,7 @@ class Letter {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        return b.equals(((Letter)obj).b);
     }
 }
 
@@ -164,7 +180,6 @@ class Sentence {
         }
     }
     public void sort() {
-        // Word word[] = new Word[];
         int number[] = new int[sl.length];
         for (int i = 0; i < number.length; i++) {
             number[i] = sl[i].check();
@@ -223,3 +238,4 @@ class Text {
         return a;
     }
 }
+
